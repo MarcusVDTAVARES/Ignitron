@@ -79,24 +79,24 @@ const string VERSION = "1.8.4";
 // 1.3" OLED 128x64 displays commonly uses an SH1106 driver.
 // Choose driver below, only one can be defined!
 
-#define OLED_DRIVER_SSD1306
-// #define OLED_DRIVER_SH1106
+// #define OLED_DRIVER_SSD1306
+#define OLED_DRIVER_SH1106
 
 // Button GPIOs
-#define BUTTON_PRESET1_GPIO 25
-#define BUTTON_DRIVE_GPIO 25
+#define BUTTON_PRESET1_GPIO 9
+#define BUTTON_DRIVE_GPIO 9
 
-#define BUTTON_PRESET2_GPIO 26
-#define BUTTON_MOD_GPIO 26
+#define BUTTON_PRESET2_GPIO 5
+#define BUTTON_MOD_GPIO 5
 
-#define BUTTON_PRESET3_GPIO 32
-#define BUTTON_DELAY_GPIO 32
+#define BUTTON_PRESET3_GPIO 10
+#define BUTTON_DELAY_GPIO 10
 
-#define BUTTON_PRESET4_GPIO 33
-#define BUTTON_REVERB_GPIO 33
+#define BUTTON_PRESET4_GPIO 38
+#define BUTTON_REVERB_GPIO 38
 
-#define BUTTON_BANK_DOWN_GPIO 19
-#define BUTTON_NOISEGATE_GPIO 19
+#define BUTTON_BANK_DOWN_GPIO 2
+#define BUTTON_NOISEGATE_GPIO 2
 
 #define BUTTON_BANK_UP_GPIO 18
 #define BUTTON_COMP_GPIO 18
@@ -105,7 +105,7 @@ const string VERSION = "1.8.4";
 #define LONG_BUTTON_PRESS_TIME 1000
 
 // LED GPIOs
-#define LED_DRIVE_GPIO 27
+#define LED_DRIVE_GPIO 11
 #define LED_MOD_GPIO 13
 #define LED_DELAY_GPIO 16
 #define LED_REVERB_GPIO 14
@@ -120,10 +120,10 @@ const string VERSION = "1.8.4";
 // The dedicated Preset LED GPIO pins LED_PRESET<n>_GPIO is defined
 // separately below under the #ifdef DEDICATED_PRESET_LEDS clause.
 
-// #define DEDICATED_PRESET_LEDS
+#define DEDICATED_PRESET_LEDS
 
 #ifdef DEDICATED_PRESET_LEDS
-#define LED_PRESET1_GPIO 0
+#define LED_PRESET1_GPIO 1
 #define LED_PRESET2_GPIO 4
 #define LED_PRESET3_GPIO 12
 #define LED_PRESET4_GPIO 15
@@ -143,8 +143,8 @@ const string VERSION = "1.8.4";
 #define OPTIONAL_GPIO_4 15
 #endif
 
-#define LED_BANK_DOWN_GPIO 23
-#define LED_NOISEGATE_GPIO 23
+#define LED_BANK_DOWN_GPIO 21
+#define LED_NOISEGATE_GPIO 21
 
 #define LED_BANK_UP_GPIO 17
 #define LED_COMP_GPIO 17
@@ -192,7 +192,14 @@ const string VERSION = "1.8.4";
 #define SPARK_MODE_KEYBOARD 3
 
 #define BT_MODE_BLE 1
+#ifndef ENABLE_BLUETOOTH_SERIAL
+//if not defined, the constant BT_MODE_SERIAL will have the same value as BT_MODE_BLE
+#define BT_MODE_SERIAL 1
+#else
+//else, it is defined. Then BT_MODE_SERIAL will have its original value.
 #define BT_MODE_SERIAL 2
+#endif
+
 
 #define AMP_TYPE_40 1
 #define AMP_TYPE_MINI 2

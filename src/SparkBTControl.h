@@ -11,7 +11,23 @@
 #include "Config_Definitions.h"
 #include "SparkTypes.h"
 #include <Arduino.h>
+#ifdef ENABLE_BLUETOOTH_SERIAL
 #include <BluetoothSerial.h>
+#else
+// Dummy class to mimic BluetoothSerial without doing anything
+class DummyBluetoothSerial {
+public:
+    void begin(const char *name) {}   // Does nothing
+    void end() {}                     // Does nothing
+    int available() { return 0; }      // Always return 0
+    int read() { return -1; }          // Nothing to read
+    void write(uint8_t) {}             // Does nothing
+    void write(const uint8_t*, size_t) {} // Does nothing
+    bool hasClient() { return false; } // No clients ever
+};
+#endif
+
+
 #include <NimBLEDevice.h>
 #include <vector>
 
@@ -183,7 +199,13 @@ private:
     NimBLEAdvertisedDevice *advDevice;
     NimBLEClient *pClient = nullptr;
 
-    BluetoothSerial *btSerial = nullptr;
+    #ifdef ENABLE_BLUETOOTH_SERIAL
+    BluetoothSerial *btSerial = nullptr;    
+    #else
+    DummyBluetoothSerial *btSerial = nullptr; // Use Dummy class instead
+    #endif
+
+    
     string bt_name_ble = "Spark GO BLE";      // Spark 40 BLE
     string bt_name_serial = "Spark GO Audio"; // Spark 40 Audio
 
@@ -217,8 +239,11 @@ private:
                      ble_gap_conn_desc *desc, uint16_t subValue);
     void onConnect(NimBLEServer *pServer_, ble_gap_conn_desc *desc);
     void onDisconnect(NimBLEServer *pServer_);
-
+    #ifdef ENABLE_BLUETOOTH_SERIAL
     static void serialCallback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param);
+    #endif
+    
+    
 
     int notificationCount = 0;
 };

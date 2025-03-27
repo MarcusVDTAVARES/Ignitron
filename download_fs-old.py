@@ -18,6 +18,7 @@ from enum import Enum
 import os
 import subprocess
 import shutil
+import time
 
 Import("env")
 platform = env.PioPlatform()
@@ -50,6 +51,7 @@ class FS_Info(FSInfo):
     def __repr__(self):
         return f"{self.fs_type} Start {hex(self.start)} Len {hex(self.length)} Page size {hex(self.page_size)} Block size {hex(self.block_size)}"
     def get_extract_cmd(self, input_file, output_dir):
+        print (str(f'"{self.tool}" -b {self.block_size} -s {self.length} -p {self.page_size} --unpack "{output_dir}" "{input_file}"'))
         return f'"{self.tool}" -b {self.block_size} -s {self.length} -p {self.page_size} --unpack "{output_dir}" "{input_file}"'
 
 # SPIFFS helpers copied from ESP32, https://github.com/platformio/platform-espressif32/blob/develop/builder/main.py
@@ -132,15 +134,15 @@ def esp8266_fetch_fs_size(env):
 ## Script interface functions
 def parse_partition_table(content):
     entries = [e for e in content.split(b'\xaaP') if len(e) > 0]
-    #print("Partition data:")
+    print("Partition data:")
     for entry in entries:
         type = entry[1]
         if type in [0x82,0x83]: # SPIFFS or LITTLEFS
             offset = int.from_bytes(entry[2:5], byteorder='little', signed=False)
             size = int.from_bytes(entry[6:9], byteorder='little', signed=False)
-            #print("type:",hex(type))
-            #print("address:",hex(offset))
-            #print("size:",hex(size))
+            print("type:",hex(type))
+            print("address:",hex(offset))
+            print("size:",hex(size))
             env["FS_START"] = offset
             env["FS_SIZE"] = size
             env["FS_PAGE"] = int("0x100", 16)
@@ -188,10 +190,10 @@ def get_fs_type_start_and_length():
             env.Exit(1)
         # fetching sizes is the same for all filesystems
         esp8266_fetch_fs_size(env)
-        #print("FS_START: " + hex(env["FS_START"]))
-        #print("FS_SIZE: " + hex(env["FS_END"] - env["FS_START"]))
-        #print("FS_PAGE: " + hex(env["FS_PAGE"]))
-        #print("FS_BLOCK: " + hex(env["FS_BLOCK"]))
+        print("FS_START: " + hex(env["FS_START"]))
+        print("FS_SIZE: " + hex(env["FS_END"] - env["FS_START"]))
+        print("FS_PAGE: " + hex(env["FS_PAGE"]))
+        print("FS_BLOCK: " + hex(env["FS_BLOCK"]))
         if filesystem == "littlefs":
             print("Recognized LittleFS filesystem.")
             return FS_Info(env["FS_START"], env["FS_END"] - env["FS_START"], env["FS_PAGE"], env["FS_BLOCK"])
@@ -203,7 +205,7 @@ def download_fs(fs_info: FSInfo):
     print(fs_info)
     esptoolpy = join(platform.get_package_dir("tool-esptoolpy") or "", "esptool.py")
     upload_port = join(env.get("UPLOAD_PORT", "none"))
-    download_speed = join(str(board.get("download.speed", "115200")))
+    download_speed = join(str(board.get("download.speed", "230400")))
     if "none" in upload_port:
         env.AutodetectUploadPort()
         upload_port = join(env.get("UPLOAD_PORT", "none"))
@@ -261,6 +263,8 @@ def display_fs(extracted_dir):
 def command_download_fs(*args, **kwargs):
     info = get_fs_type_start_and_length()
     download_ok, downloaded_file = download_fs(info)
+    print(f"Sleep 15s. File already downloaded at: {str(downloaded_file)}")
+    time.sleep(15)
     unpack_ok, unpacked_dir = unpack_fs(info, downloaded_file)
     if unpack_ok is True:
         display_fs(unpacked_dir)

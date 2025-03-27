@@ -881,6 +881,9 @@ bool SparkDataControl::checkBLEConnection() {
     return false;
 }
 
+
+
+#ifdef ENABLE_BLUETOOTH_SERIAL
 void SparkDataControl::toggleBTMode() {
 
     if (operationMode_ == SPARK_MODE_AMP) {
@@ -902,6 +905,14 @@ void SparkDataControl::toggleBTMode() {
         restartESP(false);
     }
 }
+#else
+void SparkDataControl::toggleBTMode() {
+
+    Serial.println("Bluetooth Serial NA");
+}
+#endif
+
+
 
 bool SparkDataControl::isAmpConnected() {
     return bleControl->isAmpConnected();

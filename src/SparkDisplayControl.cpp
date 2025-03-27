@@ -369,9 +369,11 @@ void SparkDisplayControl::showConnection() {
     case BT_MODE_BLE:
         currentBTModeText = "BLE";
         break;
+#ifdef ENABLE_BT_SERIAL
     case BT_MODE_SERIAL:
         currentBTModeText = "SRL";
         break;
+#endif
     }
     display.setTextColor(OLED_WHITE);
     display.setTextSize(1);

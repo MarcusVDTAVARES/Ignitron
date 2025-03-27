@@ -483,6 +483,8 @@ void SparkBTControl::stopScan() {
     }
 }
 
+
+#ifdef ENABLE_BLUETOOTH_SERIAL
 void SparkBTControl::serialCallback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
     if (event == ESP_SPP_SRV_OPEN_EVT) {
         Serial.println("Client Connected");
@@ -514,6 +516,18 @@ void SparkBTControl::stopBTSerial() {
     btSerial = nullptr;
     Serial.println("BT Serial stopped");
 }
+#else
+void SparkBTControl::startBTSerial() {
+    btSerial = new DummyBluetoothSerial();  // Assign dummy object
+    Serial.println("BT Serial NA");
+}
+
+void SparkBTControl::stopBTSerial() {
+    btSerial = nullptr;
+    Serial.println("BT Serial NA");
+}
+#endif
+
 
 void SparkBTControl::stopBLEServer() {
 
