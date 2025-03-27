@@ -11,7 +11,7 @@
 #include "Config_Definitions.h"
 #include "SparkTypes.h"
 #include <Arduino.h>
-#ifdef ENABLE_BLUETOOTH_SERIAL
+#ifndef PLATFORM_ESP32_S3
 #include <BluetoothSerial.h>
 #else
 // Dummy class to mimic BluetoothSerial without doing anything
@@ -29,16 +29,15 @@ public:
 
 
 #include <NimBLEDevice.h>
+#include <string>
 #include <vector>
 
 #include "SparkDataControl.h"
 
-// Service and characteristics UUIDs of Spark Amp
-#define SPARK_BLE_SERVICE_UUID "FFC0"
-#define SPARK_BLE_WRITE_CHAR_UUID "FFC1"
-#define SPARK_BLE_NOTIF_CHAR_UUID "FFC2"
-
 using namespace std;
+
+// Service and characteristics UUIDs of Spark Amp
+
 using ByteVector = vector<byte>;
 class SparkDataControl;
 
@@ -120,7 +119,7 @@ public:
      *
      * @return TRUE if successful
      */
-    bool writeBLE(ByteVector &cmd, bool with_delay = false, bool response = false);
+    bool writeBLE(ByteVector &cmd, bool withDelay = false, bool response = false);
     /**
      * @brief  Initializes Ignitron BLE as client to connect to the Spark Amp
      *
@@ -138,6 +137,7 @@ public:
      *
      */
     void startScan();
+
     /**
      * @brief  Checks if a scan is currently running
      *
@@ -146,6 +146,7 @@ public:
     const bool isScanning() const {
         return NimBLEDevice::getScan()->isScanning();
     }
+
     /**
      * @brief  Stops a running scan.
      *
@@ -190,56 +191,60 @@ public:
 
     void setMaxBleMsgSize(int size) {
         if (size > 0)
-            BLE_MAX_MSG_SIZE = size;
+            bleMaxMsgSize_ = size;
     }
 
 private:
+    const string SPARK_BLE_SERVICE_UUID = "FFC0";
+    const string SPARK_BLE_WRITE_CHAR_UUID = "FFC1";
+    const string SPARK_BLE_NOTIF_CHAR_UUID = "FFC2";
+
     /** Create a single global instance of the callback class to be used by all clients */
     // static ClientCallbacks clientCB;
-    NimBLEAdvertisedDevice *advDevice;
-    NimBLEClient *pClient = nullptr;
+    NimBLEAdvertisedDevice *advDevice_;
+    NimBLEClient *client_ = nullptr;
 
-    #ifdef ENABLE_BLUETOOTH_SERIAL
+    #ifndef PLATFORM_ESP32_S3
     BluetoothSerial *btSerial = nullptr;    
     #else
     DummyBluetoothSerial *btSerial = nullptr; // Use Dummy class instead
     #endif
 
     
-    string bt_name_ble = "Spark GO BLE";      // Spark 40 BLE
-    string bt_name_serial = "Spark GO Audio"; // Spark 40 Audio
+    const string btNameBle = "Spark 40 BLE";      // Spark 40 BLE
+    const string btNameSerial = "Spark 40 Audio"; // Spark 40 Audio
 
     bool isAmpConnected_ = false;
     bool isConnectionFound_ = false;
     // isClientConnected will be set when a client is connected to ESP in AMP mode
     bool isAppConnectedBLE_ = false;
     static bool isAppConnectedSerial_;
-    notify_callback notifyCB;
+    notify_callback notifyCB_;
 
-    uint32_t scanTime = 0; /** 0 = scan forever */
-    const uint8_t notificationOn[2] = {0x1, 0x0};
-    int BLE_MAX_MSG_SIZE = 0x64;
+    const uint32_t kScanTime = 0; /** 0 = scan forever */
+    const uint8_t kNotificationOn[2] = {0x1, 0x0};
+    int bleMaxMsgSize_ = 0x64;
 
     static void scanEndedCB(NimBLEScanResults results);
     void onResult(NimBLEAdvertisedDevice *advertisedDevice);
     void setAdvertisedDevice(NimBLEAdvertisedDevice *device);
-    void onDisconnect(NimBLEClient *pClient_);
-    void onConnect(NimBLEClient *pClient_);
+    void onDisconnect(NimBLEClient *client);
+    void onConnect(NimBLEClient *client);
 
     // Server mode functions
-    NimBLEServer *pServer = nullptr;
-    NimBLEService *pSparkService = nullptr;
-    NimBLECharacteristic *pSparkWriteCharacteristic = nullptr;
-    NimBLECharacteristic *pSparkNotificationCharacteristic = nullptr;
-    NimBLEAdvertising *pAdvertising = nullptr;
+    NimBLEServer *server_ = nullptr;
+    NimBLEService *sparkService_ = nullptr;
+    NimBLECharacteristic *sparkWriteCharacteristic_ = nullptr;
+    NimBLECharacteristic *sparkNotificationCharacteristic_ = nullptr;
+    NimBLEAdvertising *advertising_ = nullptr;
 
-    SparkDataControl *spark_dc;
-    void onWrite(NimBLECharacteristic *pCharacteristic);
-    void onSubscribe(NimBLECharacteristic *pCharacteristic,
+    SparkDataControl *spark_dc_;
+    void onWrite(NimBLECharacteristic *characteristic);
+    void onSubscribe(NimBLECharacteristic *characteristic,
                      ble_gap_conn_desc *desc, uint16_t subValue);
-    void onConnect(NimBLEServer *pServer_, ble_gap_conn_desc *desc);
-    void onDisconnect(NimBLEServer *pServer_);
-    #ifdef ENABLE_BLUETOOTH_SERIAL
+    void onConnect(NimBLEServer *server, ble_gap_conn_desc *desc);
+    void onDisconnect(NimBLEServer *server);
+    #ifndef PLATFORM_ESP32_S3
     static void serialCallback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param);
     #endif
     

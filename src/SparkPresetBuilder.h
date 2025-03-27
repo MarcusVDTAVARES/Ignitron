@@ -19,17 +19,21 @@
 #include "SparkHelper.h"
 #include "SparkTypes.h"
 
-#define PRESETS_PER_BANK 4
+const int PRESETS_PER_BANK = 4;
 
-#define STORE_PRESET_OK 1
-#define STORE_PRESET_FILE_EXISTS 2
-#define STORE_PRESET_ERROR_OPEN 3
-#define STORE_PRESET_UNKNOWN_ERROR 4
+enum PresetStoreResult {
+    STORE_PRESET_OK,
+    STORE_PRESET_FILE_EXISTS,
+    STORE_PRESET_ERROR_OPEN,
+    STORE_PRESET_UNKNOWN_ERROR
+};
 
-#define DELETE_PRESET_OK 1
-#define DELETE_PRESET_FILE_NOT_EXIST 2
-#define DELETE_PRESET_ERROR_OPEN 3
-#define DELETE_PRESET_UNKNOWN_ERROR 4
+enum PresetDeleteResult {
+    DELETE_PRESET_OK,
+    DELETE_PRESET_FILE_NOT_EXIST,
+    DELETE_PRESET_ERROR_OPEN,
+    DELETE_PRESET_UNKNOWN_ERROR
+};
 
 using namespace std;
 using ByteVector = vector<byte>;
@@ -42,7 +46,7 @@ private:
     vector<Preset> hwPresets;
 
     int numberOfHWBanks_ = 1;
-    int numberOfHWPresets_ = 4;
+    int numberOfHWPresets_ = PRESETS_PER_BANK;
 
     const char *presetListFileName = "/PresetList.txt";
     const char *presetListUUIDFileName = "/PresetListUUIDs.txt";
@@ -65,15 +69,14 @@ public:
     const int numberOfHWPresets() const { return numberOfHWPresets_; }
 
     void validateChecksums(vector<byte> checksums);
-    Preset
-    getPreset(int bank, int preset);
+    Preset getPreset(int bank, int preset);
     pair<int, int> getBankPresetNumFromUUID(string uuid);
     const int getNumberOfBanks() const;
     Preset getPresetFromJson(char *json);
     Preset getPresetFromJson(File file);
     Preset getPresetFromJsonDocument(JsonDocument doc, string jsonString);
-    int storePreset(Preset newPreset, int bnk, int pre);
-    int deletePreset(int bnk, int pre);
+    PresetStoreResult storePreset(Preset newPreset, int bnk, int pre);
+    PresetDeleteResult deletePreset(int bnk, int pre);
 
     void insertHWPreset(int number, const Preset &preset);
     string savePresetToFile(string filename, const Preset &preset, bool overwrite = false);

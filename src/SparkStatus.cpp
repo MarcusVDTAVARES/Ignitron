@@ -24,9 +24,34 @@ void SparkStatus::resetLooperSettingUpdateFlag() {
 }
 
 void SparkStatus::resetLastMessageType() {
-    last_message_type_ = 0;
+    lastMessageType_ = MSG_TYPE_NONE;
 }
 
 void SparkStatus::resetAcknowledgments() {
     acknowledgments_.clear();
+}
+
+void SparkStatus::resetStatus() {
+    isLooperSettingUpdated_ = false;
+
+    lastLooperCommand_ = 0;
+
+    ampName_ = "";
+    // Preset number. Can be retrieved by main program in case it has been updated by Spark Amp.
+    currentPresetNumber_ = 0;
+    // Flags to indicate that either preset or presetNumber have been updated
+    isPresetUpdated_ = false;
+    isPresetNumberUpdated_ = false;
+    isEffectUpdated_ = false;
+
+    acknowledgments_.clear();
+    lastMessageType_ = MSG_TYPE_NONE;
+    lastMessageNum_ = 0x00;
+    lastRequestedPreset = 0x00;
+
+    ampBatteryLevel_ = BATTERY_LEVEL_0;
+    isAmpBatteryPowered_ = false;
+    ampBatteryChargingStatus_ = BATTERY_CHARGING_STATUS_DISCHARGING;
+
+    hwChecksums_.clear();
 }
