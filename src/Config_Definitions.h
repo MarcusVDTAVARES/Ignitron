@@ -110,7 +110,7 @@ enum BatteryChargingStatus {
 // Depending on the user preferences enabling blink can be a help
 // to see that we have left the normal Preset mode. However on stage
 // this can be irritating with a pedal flashing.
-const bool ENABLE_FX_BLINK = false;
+const bool ENABLE_FX_BLINK = true;
 
 // Button GPIOs
 enum ButtonGpio {

@@ -1,0 +1,12 @@
+{"PresetNumber": 127, "UUID": "1ce6e829-8383-4352-b658-05f22b263fd9",
+"Name": "Kadu Cozy Serenade", "Version": "0.7", "Description": "", "Icon": "icon.png", "BPM": 120.0000,
+"Pedals": [
+{"Name": "bias.noisegate", "IsOn": true, "Parameters":[0.1432, 0.0000, 1.0000]},
+{"Name": "BlueComp", "IsOn": true, "Parameters":[0.5064, 0.3565, 0.3489, 0.4075]},
+{"Name": "Booster", "IsOn": false, "Parameters":[0.5675]},
+{"Name": "FatAcousticV2", "IsOn": true, "Parameters":[0.4540, 0.7194, 0.5652, 0.4947, 0.8294]},
+{"Name": "ChorusAnalog", "IsOn": true, "Parameters":[0.6149, 0.2367, 0.7458, 0.4316]},
+{"Name": "DelayMono", "IsOn": true, "Parameters":[0.1155, 0.2117, 0.3344, 0.4000, 1.0000]},
+{"Name": "bias.reverb", "IsOn": true, "Parameters":[0.3159, 0.6522, 0.1114, 0.3578, 0.3393, 0.4899, 0.7000, 1.0000]}],
+"Checksum": "CA"
+}

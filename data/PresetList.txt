@@ -1,3 +1,23 @@
+-- Bank a 
+KaduCozySerenade.json
+RadioheadCreep.json
+NirvanaSmellsClean.json
+NirvanaSmellsDirty.json
+-- Bank b 
+PerfectCleanLarson.json
+HouseoftheRisingSonJusti.json
+Hendrix.json
+RedHotChiliPeppers.json
+-- Bank c 
+VintageCreamyLarson.json
+VoodooKidWah.json
+JethroTull.json
+EddieVanHalen.json
+-- Bank d
+SultansOfSwingKnopfler.json
+Oasis.json
+DookieSoundGreenDay.json
+EnterSandman.json
 -- Bank 1 
 SweetChildOfMine.json
 SlashV2.json
@@ -97,3 +117,4 @@ HideAndSeek.json
 CleanRB5001.json
 CleanRB500.json 
 muffRB500.json
+AliceCooper.json

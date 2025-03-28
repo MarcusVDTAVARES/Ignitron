@@ -1,0 +1,12 @@
+{"PresetNumber": 127, "UUID": "53b9b257-8ff2-468e-8ca9-8071b3af4480",
+"Name": "Nirvana Smells Clean", "Version": "0.7", "Description": "", "Icon": "icon.png", "BPM": 120.0000,
+"Pedals": [
+{"Name": "bias.noisegate", "IsOn": true, "Parameters":[0.3169, 0.3042]},
+{"Name": "Compressor", "IsOn": false, "Parameters":[0.3411, 0.6658]},
+{"Name": "Booster", "IsOn": false, "Parameters":[0.7670]},
+{"Name": "OverDrivenLuxVerb", "IsOn": true, "Parameters":[0.2471, 0.5568, 0.5723, 0.0000, 0.8264]},
+{"Name": "UniVibe", "IsOn": false, "Parameters":[0.5000, 0.0000, 0.6875]},
+{"Name": "DelayEchoFilt", "IsOn": true, "Parameters":[0.3846, 0.2373, 0.3229, 0.6711, 1.0000]},
+{"Name": "bias.reverb", "IsOn": true, "Parameters":[0.1201, 0.1500, 0.5000, 0.4068, 0.2993, 0.7685, 0.1000]}],
+"Checksum": "CA"
+}

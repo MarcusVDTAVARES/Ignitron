@@ -1,0 +1,12 @@
+{"PresetNumber": 127, "UUID": "bf56c9eb-2d6d-4e3e-8759-59ae1c6fa5c1",
+"Name": "Nirvana Smells Dirty", "Version": "0.7", "Description": "", "Icon": "icon.png", "BPM": 120.0000,
+"Pedals": [
+{"Name": "bias.noisegate", "IsOn": true, "Parameters":[0.1162, 0.0606, 0.0000]},
+{"Name": "Compressor", "IsOn": true, "Parameters":[0.3029, 0.5233]},
+{"Name": "SABdriver", "IsOn": true, "Parameters":[0.1535, 1.0000, 0.0746, 0.0000]},
+{"Name": "OrangeAD30", "IsOn": true, "Parameters":[0.5261, 0.3566, 0.4016, 0.6010, 1.0000]},
+{"Name": "Flanger", "IsOn": false, "Parameters":[0.4138, 0.6630, 0.6552]},
+{"Name": "DelayMono", "IsOn": false, "Parameters":[0.0929, 0.1652, 0.5093, 0.6000, 1.0000]},
+{"Name": "bias.reverb", "IsOn": true, "Parameters":[0.1988, 0.8975, 0.6074, 0.2307, 0.5821, 0.6500, 0.2000]}],
+"Checksum": "CA"
+}

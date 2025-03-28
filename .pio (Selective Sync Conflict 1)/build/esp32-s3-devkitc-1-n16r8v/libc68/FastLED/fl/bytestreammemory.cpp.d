@@ -1,0 +1,22 @@
+.pio/build/esp32-s3-devkitc-1-n16r8v/libc68/FastLED/fl/bytestreammemory.cpp.o: \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/bytestreammemory.cpp \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/bytestreammemory.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/namespace.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/ptr.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/scoped_ptr.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/template_magic.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/bytestream.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/crgb.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/chsv.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/color.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/lib8tion/types.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/force_inline.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/circular_buffer.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/math_macros.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/warn.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/dbg.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/strstream.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/str.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/vector.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/inplacenew.h \
+ .pio/libdeps/esp32-s3-devkitc-1-n16r8v/FastLED/src/fl/insert_result.h
